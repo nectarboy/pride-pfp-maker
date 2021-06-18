@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>((working title))</title>
+        <meta charset='utf-8'>
+
+        <link rel='stylesheet' href='index.css'>
+
+        <!-- PfpPride scripts -->
+        <script src='src/pfppride.js'></script>
+        <script src='src/presetflags.js'></script>
+        <script src='src/editor.js'></script>
+    </head>
+
+    <body>
+
+        <!-- top bar -->
+        <div class='topBar'>
+            <div class='topSub'>
+                <span class='topTitle'>Pride PFP Generator | </span>
+                <span class='topDesc'>customize your PFPs with pride flags !</span>
+                <br>
+                <marquee><span id='prideNotice' class='prideText'></span></marquee>
+
+                <script>
+                    if ((new Date()).getMonth() === 5) // :3
+                        document.getElementById('prideNotice').innerHTML = 'happy pride month '.repeat(12);
+                </script>
+            </div>
+        </div>
+        <br>
+
+        <!-- main divs -->
+        <div class='outerBox'>
+
+            <!-- upload div -->
+            <div id='uploadDiv' class='mainBox' style='display: none'>
+                
+            </div>
+
+            <!-- editor div -->
+            <div id='editorDiv' class='mainBox' style='display: none'>
+                <canvas id='mainCanvas' class='mainCanvas' width='500' height='500'></canvas>
+            </div>
+
+        </div>
+
+        <!-- end of body - start of scripts ! -->
+
+        <!-- index script ( INDEX.JS !!!!! ) -->
+        <script>
+            // get all elements
+            var mainCanvas = document.getElementById('mainCanvas');
+            var mainCtx = mainCanvas.getContext('2d');
+
+            var uploadDiv = document.getElementById('uploadDiv'); 
+            var editorDiv = document.getElementById('editorDiv');
+
+            var currentDiv = uploadDiv;
+            function selectDiv(div) {
+                currentDiv.style.display = 'none';
+
+                currentDiv = div;
+                currentDiv.style.display = 'inherit';
+            }
+
+            selectDiv(uploadDiv);
+
+            // editor
+            var editor = new Editor(mainCanvas);
+
+            editor.onImgLoad = function() {
+                editor.refreshCanvas();
+            };
+            
+            editor.loadPfpImg('assets/eye.png');
+
+            // pfp loading
+        </script>
+    </body>
+</html>
