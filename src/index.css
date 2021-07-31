@@ -1,0 +1,233 @@
+/* COLORS
+ *
+ * bg -     #333333
+ * layer0 - #4a4a4a
+ * layer1 - #5e5e5e
+ * black -  #111111
+ * grey -   #7d7d7d
+ * white -  #f0f0f0
+
+ * shadow - box-shadow: rgba(0, 0, 0, 0.3) 0px 20px 30px;
+ */
+
+html, body {
+    margin: 0;
+    padding: 0;
+
+    background-color: #333333;
+    color: #f0f0f0;
+
+    height: 100%;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+/* ------------------------ */
+.topBar {
+    width: 100%;
+    height: 75px;
+
+    background-color: #111111;
+    border-bottom: 1px solid #5e5e5e;
+}
+
+.topSub { /* shut the fuck up */
+    padding: 8px 0 0 32px;
+}
+
+.topTitle {
+    font-size: 30px;
+}
+
+.topDesc {
+    color: #5e5e5e;
+    font-size: 16px;
+}
+
+.prideText {
+    font-family: comic sans ms;
+    size: 12px;
+
+    animation: rainbow 3s infinite; 
+    -webkit-animation: rainbow 3s infinite;   
+    -ms-animation: rainbow 3s infinite;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes rainbow {
+    0%   {color: red;}
+    16%  {color: orange;}    
+    33%  {color: yellow;}   
+    50%  {color: lime;}
+    66%  {color: green;}
+    83%  {color: blue;}
+    100% {color: red;}
+}
+
+/* ------------------------ */
+.outerBox {
+    margin: 0 auto;
+    padding: 8px;
+
+    width: 95%;
+    height: 512px;
+
+    text-align: center;
+}
+
+.mainBox {
+    padding: 12px;
+
+    height: 100%;
+
+    background-color: #4a4a4a;
+    border-radius: 10px;
+}
+
+/* horizontal lines */
+.line {
+    background: #f0f0f0;
+    width: 80%;
+    height: 1px;
+
+    border: 0;
+}
+
+/* layers */
+.smallLayer,
+.mediumLayer,
+.bigLayer
+{
+    display: block;
+    padding: 8px;
+
+    background-color: #5e5e5e;
+    border-radius: 8px;
+
+    /* i fucking hate css with all my fucking life holy shit */
+    width: auto;
+    right: 12px;
+    left: 12px;
+
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 20px 30px;
+
+    overflow: auto;
+}
+
+.smallLayer {
+    height: 25%;
+}
+.mediumLayer {
+    height: 65%;
+}
+.bigLayer {
+    height: 95%;
+}
+
+/* vertically centered image solution from SO lmaooo */
+.centerImgFrame {
+    height: 100%;      /* Equals maximum image height */
+    width: 100%;
+    white-space: nowrap; /* This is required unless you put the helper span closely near the img */
+
+    text-align: center;
+    margin: 1em 0;
+}
+
+.centerImgHelper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.uploadImg,
+.centerImg {
+    vertical-align: middle;
+}
+
+/* ------------------------ / Upload Div */
+.uploadImg {
+    position: relative;
+
+    height: 180px;
+    width: 180px;
+
+    top: 0;
+    transition: 0.2s;
+}
+
+.uploadImg:hover {
+    top: -8px;
+}
+
+/* ------------------------ / Editor Div */
+.editorTable {
+    width: 100%;
+    height: 100%;
+}
+    
+/* sides */
+.sideWrap {
+    padding: 0 12px 0 12px;
+    height: 100%;
+}
+
+.leftSide {
+    width: 65%;
+}
+.rightSide {
+    width: 35%;
+}
+
+/* flag buttons */
+.flagButtonWrapper {
+    display: inline-block;
+    padding: 4px;
+}
+
+.flagButtonDiv {
+    text-align: center;
+    display: inline-block;
+
+    width: 100%;
+}
+
+.flagButton {
+    position: relative;
+    display: inline-block;
+
+    background-color: #333333;
+
+    border: 1px solid #111111;
+    border-radius: 8px 8px 8px 8px;
+    border-bottom-width: 6px;
+
+    width: 100px;
+    height: 75px;
+    line-height: 32px; /* 75/2 */
+
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 20px 30px;
+
+    transition: 0.2s;
+}
+.flagButton:hover {
+    transition: background-color 0.3s ease-out;
+    background-color: #5e5e5e;
+}
+.flagButton:active {
+    transition: border-bottom-width 0.1s;
+    border-bottom-width: 1px;
+}
+
+/* ------------------------ */
+.pfpPreview {
+    width: 256px;
+    height: 256px;
+
+    border: 2px solid #f0f0f0;
+    border-radius: 100%;
+
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 20px 30px;
+}

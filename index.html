@@ -4,57 +4,123 @@
         <title>((working title))</title>
         <meta charset='utf-8'>
 
-        <link rel='stylesheet' href='index.css'>
+        <link rel='stylesheet' href='src/index.css'>
 
         <!-- PfpPride scripts -->
-        <script src='src/pfppride.js'></script>
-        <script src='src/presetflags.js'></script>
-        <script src='src/editor.js'></script>
+        <script src='src/pfppride/pfppride.js'></script>
+        <script src='src/pfppride/presetflags.js'></script>
+        <script src='src/pfppride/editor.js'></script>
     </head>
 
     <body>
 
-        <!-- top bar -->
+        <!-- Top bar -->
         <div class='topBar'>
-            <div class='topSub'>
-                <span class='topTitle'>Pride PFP Generator | </span>
+            <div class='topSub'> <!-- stfu -->
+                <span class='topTitle'>Pride PFP Generator 0.3 | </span>
                 <span class='topDesc'>customize your PFPs with pride flags !</span>
                 <br>
-                <marquee><span id='prideNotice' class='prideText'></span></marquee>
 
+                <marquee><span id='prideAlertMuthaFucka' class='prideText'></span></marquee>
                 <script>
-                    if ((new Date()).getMonth() === 5) // :3
-                        document.getElementById('prideNotice').innerHTML = 'happy pride month '.repeat(12);
+                    if ((new Date()).getMonth() === 5)
+                        document.getElementById('prideAlertMuthaFucka').innerHTML = 'happy pride month '.repeat(12); // 13 ?
+
+                    // if u see this ur gay as balls
                 </script>
             </div>
         </div>
         <br>
 
-        <!-- main divs -->
+        <!-- Main dividers -->
         <div class='outerBox'>
 
-            <!-- upload div -->
+            <!-- Upload div -->
             <div id='uploadDiv' class='mainBox' style='display: none'>
-                
+                <div class='bigLayer' style='overflow-y: hidden'>
+                    <span>
+                        drap and drop an image !<br>
+                        (or click that icon)
+                    </span>
+
+                    <hr class='line'>
+                    <!-- Upload image -->
+                    <div class='centerImgFrame'>
+                        <span class='centerImgHelper'></span>
+
+                        <input type='file' id='uploadButton' style='display: none'>
+                        <label for='uploadButton'>
+                            <img src='src/assets/upload.png' id='uploadButton' class='uploadImg' draggable='false'>
+                        </label>
+                    </div>
+                </div>
             </div>
 
-            <!-- editor div -->
+            <!-- Editor div -->
             <div id='editorDiv' class='mainBox' style='display: none'>
-                <canvas id='mainCanvas' class='mainCanvas' width='500' height='500'></canvas>
+                <table class='editorTable'>
+                    <tr>
+                        <!-- Left side -->
+                        <td class='leftSide'>
+                        <div class='sideWrap'>
+
+                            <!-- Preview -->
+                            <div class='mediumLayer'>
+                                <span>
+                                    this is your profile pic !<br>
+                                    drag it to move the image position !
+                                </span>
+                                <hr class='line'>
+
+                                <canvas id='mainCanvas' class='pfpPreview' width='500' height='500'></canvas>
+                            </div>
+                            <br>
+
+                            <!-- Flag Select -->
+                            <div class='smallLayer'>
+                                <span>change the pride flag !</span>
+                                <hr class='line'>
+
+                                <!-- i love tables unh -->
+                                <div id='flagButtonDiv' class='flagButtonDiv'></div>
+                            </div>
+
+                        </div>
+                        </td>
+
+                        <!-- Right side -->
+                        <td class='rightSide'>
+                        <div class='sideWrap'>
+                            
+                            <!-- Settings -->
+                            <div class='bigLayer'></div>
+
+                        </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
 
         </div>
+        <br>
 
-        <!-- end of body - start of scripts ! -->
+        <div style='text-align: center'>
+            <span class='topDesc'>nectarboy | 2021 | <a class='topDesc' href='https://damnsonwheredyafindthis.com'>source</a></span>
+        </div>
 
-        <!-- index script ( INDEX.JS !!!!! ) -->
+        <!-- Index script ( INDEX.JS !!!??) -->
         <script>
-            // get all elements
-            var mainCanvas = document.getElementById('mainCanvas');
-            var mainCtx = mainCanvas.getContext('2d');
+            console.log('what u doing sneakin around in the code huh ...');
 
-            var uploadDiv = document.getElementById('uploadDiv'); 
-            var editorDiv = document.getElementById('editorDiv');
+            // --- get all elements
+            const mainCanvas = document.getElementById('mainCanvas');
+            const mainCtx = mainCanvas.getContext('2d');
+
+            const uploadDiv = document.getElementById('uploadDiv');
+                const uploadButton = document.getElementById('uploadButton');
+
+            const editorDiv = document.getElementById('editorDiv');
+                const flagButtonDiv = document.getElementById('flagButtonDiv');
 
             var currentDiv = uploadDiv;
             function selectDiv(div) {
@@ -66,16 +132,95 @@
 
             selectDiv(uploadDiv);
 
+            // --- editing
             // editor
-            var editor = new Editor(mainCanvas);
+            var editor = null;
+            function resetEditor() {
+                editor = new Editor(mainCanvas);
+                editor.pfpFlagID = 1; // Gay flag
 
-            editor.onImgLoad = function() {
-                editor.refreshCanvas();
+                editor.onImgLoad = function() {
+                    editor.refreshCanvas();
+                };
+            }
+
+            // generate flag buttons
+            for (var i = 0; i < presetFlags.length; i++) {
+                // create elements
+                const wrapper = document.createElement('div');
+                const div = document.createElement('div');
+                const span = document.createElement('span');
+
+                // generate text
+                const canv = document.createElement('canvas');
+                    canv.width = canv.height = 24;
+                    canv.style.border = '1px solid white';
+                    presetFlags[i].obj.DrawFlagOnCanvas(canv);
+
+                const title = document.createElement('span');
+                    title.innerHTML = presetFlags[i].name + '<br>';
+
+                span.appendChild(title);
+                span.appendChild(canv);
+
+                div.className = 'flagButton';
+                wrapper.className = 'flagButtonWrapper';
+
+                // append all elements
+                div.appendChild(span);
+                wrapper.appendChild(div);
+                flagButtonDiv.appendChild(wrapper);
+
+                // button functionality
+                (function(ii) {
+                    div.onclick = function() {
+                        editor.pfpFlagID = ii;
+                        editor.refreshCanvas();
+                    };
+                })(i);
+            }
+
+            // --- uploading
+            function loadImgFromFile(file) {
+                const img = new Image();
+                img.onload = () => {
+                    resetEditor();
+                    editor.loadPfpImg(img.src);
+
+                    selectDiv(editorDiv);
+                };
+
+                img.onerror = () => {
+                    alert('bitch the fuck did u give me !');
+                };
+
+                img.src = URL.createObjectURL(file); // set src to blob url
             };
-            
-            editor.loadPfpImg('assets/eye.png');
 
-            // pfp loading
+            // drag and drop
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                  uploadDiv.addEventListener(eventName, function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    });
+                });
+            uploadDiv.ondrop = function(e) {
+                const files = e.dataTransfer.files;
+                if (files && files[0])
+                    loadImgFromFile(files[0]);
+
+                e.preventDefault();
+            };
+
+            // button click
+            uploadButton.onchange = function() {
+                if (this.files && this.files[0])
+                    loadImgFromFile(this.files[0]);
+            };
+
+            console.log('no errors :D');
+
         </script>
+
     </body>
 </html>
