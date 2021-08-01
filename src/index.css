@@ -118,12 +118,15 @@ html, body {
 
 .smallLayer {
     height: 25%;
+    max-height: 25%;
 }
 .mediumLayer {
     height: 65%;
+    max-height: 65%;
 }
 .bigLayer {
     height: 95%;
+    max-height: 95%;
 }
 
 /* vertically centered image solution from SO lmaooo */
@@ -142,9 +145,38 @@ html, body {
     vertical-align: middle;
 }
 
-.uploadImg,
 .centerImg {
     vertical-align: middle;
+}
+
+/* buttons */
+.button {
+    position: relative;
+    display: inline-block;
+
+    background-color: #333333;
+
+    user-select: none;
+
+    border: 1px solid #111111;
+    border-radius: 8px 8px 8px 8px;
+    border-bottom-width: 6px;
+
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 20px 30px;
+
+    top: 0px;
+
+    transition: background-color 0.2s;
+}
+.button:hover {
+    transition: background-color 0.3s ease-out;
+    background-color: #5e5e5e;
+}
+.button:active {
+    transition: border-bottom-width, top 0.05s;
+    border-bottom-width: 1px;
+
+    top: 6px;
 }
 
 /* ------------------------ / Upload Div */
@@ -195,31 +227,19 @@ html, body {
 }
 
 .flagButton {
-    position: relative;
-    display: inline-block;
-
-    background-color: #333333;
-
-    border: 1px solid #111111;
-    border-radius: 8px 8px 8px 8px;
-    border-bottom-width: 6px;
-
     width: 100px;
     height: 75px;
     line-height: 32px; /* 75/2 */
+}
 
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 20px 30px;
+/* other buttons */
+.otherFlagButton {
+    width: 100px;
+    height: 50px;
+    line-height: 25px; /* 50/2 */
+}
 
-    transition: 0.2s;
-}
-.flagButton:hover {
-    transition: background-color 0.3s ease-out;
-    background-color: #5e5e5e;
-}
-.flagButton:active {
-    transition: border-bottom-width 0.1s;
-    border-bottom-width: 1px;
-}
+/* sliders and toggles n shit */
 
 /* ------------------------ */
 .pfpPreview {

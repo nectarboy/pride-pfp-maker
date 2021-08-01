@@ -21,7 +21,7 @@ const presetFlags = [
     },
     {
         name: 'Pansexual',
-        obj: new FlagObject(['#ff3d7e', '#ebdb00', '#2fa7f7'])
+        obj: new FlagObject(['#ff3d7e', '#f2e200', '#2fa7f7'])
     },
     {
         name: 'Non-Binary',
@@ -29,6 +29,6 @@ const presetFlags = [
     },
     {
         name: 'MLM Flag',
-        obj: new FlagObject(['#000000', '#929292', '#ffffff', '#870c7b'])
+        obj: new FlagObject(['#0b8062', '#1fcca0', '#30e6af', '#ffffff', '#27bde3', '#0a8ec2', '#0c3975'])
     },
 ];
