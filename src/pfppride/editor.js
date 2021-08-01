@@ -96,21 +96,28 @@ class Editor {
         if (this.customFlag) {
             const ctx = canvas.getContext('2d');
 
-            const canvScale = this.canvas.height / this.flagImg.height;
-            const widthMul = Math.max(
-                1,
-                this.flagImg.height / this.flagImg.width
-            ) * canvScale;
+            var canvScale = 0;
+            var x = 0;
+            var y = 0;
 
-            const scaledWidth = this.flagImg.width * widthMul;
-            const scaledHeight = this.flagImg.height * widthMul;
+            // Flag width bigger than height
+            if (this.flagImg.width > this.flagImg.height) {
+                canvScale = this.canvas.height / this.flagImg.height;
+                x = (canvas.width/2) - ((this.flagImg.width * canvScale)/2);
+            }
+            // Flag height bigger than width
+            else {
+                canvScale = this.canvas.height / this.flagImg.width;
+                y = (canvas.height/2) - ((this.flagImg.height * canvScale)/2);
+            }
+
 
             ctx.drawImage(
                 this.flagImg,
-                (this.pfpImg.width - scaledWidth)/2,
-                (this.pfpImg.height - scaledHeight)/2,
-                scaledWidth,
-                scaledHeight
+                x,
+                y,
+                this.flagImg.width * canvScale,
+                this.flagImg.height * canvScale
             );
         }
         // Standard flag
