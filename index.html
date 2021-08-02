@@ -51,8 +51,8 @@
                         drap and drop an image !<br>
                         (or click that icon)
                     </span>
-
                     <hr class='line'>
+
                     <!-- Upload image -->
                     <div class='centerImgFrame'>
                         <span class='centerImgHelper'></span>
@@ -61,6 +61,27 @@
                         <label for='uploadButton'>
                             <img src='src/assets/upload.png' id='uploadButton' class='centerImg uploadImg' draggable='false'>
                         </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export div -->
+            <div id='exportDiv' class='mainBox' style='display: none'>
+                <div class='bigLayer' style='overflow-y: hidden'>
+                    <span>
+                        right click and save the image !<br>
+                        (tap and hold if on mobile)
+                    </span>
+                    <hr class='line'>
+
+                    <div id='continueEditing' class='button otherFlagButton'>
+                        <span>Continue Editing</span>
+                    </div>
+
+                    <!-- Upload image -->
+                    <div class='centerImgFrame'>
+                        <span class='centerImgHelper'></span>
+                        <img id='exportEl' class='exportImg'>
                     </div>
                 </div>
             </div>
@@ -161,6 +182,10 @@
             const uploadDiv = document.getElementById('uploadDiv');
                 const uploadButton = document.getElementById('uploadButton');
 
+            const exportDiv = document.getElementById('exportDiv');
+                const continueEditing = document.getElementById('continueEditing');
+                const exportEl = document.getElementById('exportEl');
+
             const editorDiv = document.getElementById('editorDiv');
                 const flagButtonDiv = document.getElementById('flagButtonDiv');
                 const otherFlagInput = document.getElementById('otherFlagInput');
@@ -204,7 +229,7 @@
                 console.log(imgScaleInput.value, ringScaleInput.value);
             }
 
-            function getCanvasDataUrl() {
+            function getCanvasUrl(canvas) {
                 return mainCanvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
             }
 
@@ -313,22 +338,21 @@
             };
 
             exportButton.onclick = function() {
-                window.open(
-                    getCanvasDataUrl(),
-                    '_blank'
-                );
+                // download as file method - ehh
+                // window.open(
+                //     getCanvasUrl(mainCanvas),
+                //     '_blank'
+                // );
 
-                /*
-                const img = new Image();
-                img.onload = function() {
-                    const win = window.open('', '_blank');
-                    win.document.write(img.outerHTML);
+                // let user manually save - better for phones ig :,3
+                exportEl.onload = function() {
+                    selectDiv(exportDiv);
                 };
 
-                img.onerror = () => alert('there was an error exporting ! try again o_o;')
+                exportEl.onerror = () => alert('there was an error exporting ! try again ? o_o;');
 
-                img.src = getCanvasDataUrl();
-                */
+                exportEl.src = getCanvasUrl(mainCanvas);
+                
             };
 
             // --- uploading
@@ -349,6 +373,14 @@
             uploadButton.onchange = function() {
                 if (this.files && this.files[0])
                     loadImgFromFile(this.files[0], onPfpUpload);
+            };
+
+            // --- exporting
+            continueEditing.onclick = function() {
+                selectDiv(editorDiv);
+
+                exportEl.onerror = null;
+                exportEl.src = ''; // unneeded !
             };
 
             // --- execute

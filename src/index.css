@@ -194,6 +194,20 @@ html, body {
     top: -8px;
 }
 
+/* ------------------------ / Export Div */
+.exportImg {
+    height: 70%;
+    border-radius: 2px;
+
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 20px 30px;
+}
+
+.exportButton {
+    width: 128px;
+    height: 48px;
+    line-height: 24px; /* 50/2 */
+}
+
 /* ------------------------ / Editor Div */
 .editorTable {
     width: 100%;
@@ -273,7 +287,7 @@ html, body {
 
 /* export buttons */
 .newImgButton, .greenButton {
-    color: white;
+    color: #f0f0f0;
     font-size: 16px;
 
     width: 80%;
