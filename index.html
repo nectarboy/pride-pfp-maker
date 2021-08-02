@@ -3,6 +3,7 @@
     <head>
         <title>Pride PFP Maker</title>
         <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=0.5'> <!-- should be good for most phones ? -->
 
         <link rel='stylesheet' href='src/index.css'>
         <link rel='shortcut icon' href='src/assets/favicon.png' type='image/png'>
@@ -26,7 +27,7 @@
                     <img src='src/assets/logo_24.png'>
                     Pride PFP Maker |
                 </span>
-                <span class='topDesc'>customize your PFPs with pride flags ! v0.5</span>
+                <span class='topDesc'>customize your PFPs with pride flags ! v0.6</span>
                 <br>
 
                 <marquee><span id='prideAlertMuthaFucka' class='prideText'></span></marquee>
@@ -105,8 +106,35 @@
                             
                             <!-- Settings -->
                             <div class='bigLayer'>
-                                <span>more settings !</span>
-                                <hr class='line'>
+                                <div class='exportDivWrapper'>
+                                    <span>more settings !</span>
+                                    <hr class='line'>
+
+                                    <div>
+                                        <!-- Image scale -->
+                                        <span>image scale</span>
+                                        <br>
+                                        <input type='range' id='imgScaleInput' class='slider' min='0' max='3' step='0.05'>
+                                        <br>
+
+                                        <!-- Ring scale -->
+                                        <span>ring scale</span>
+                                        <br>
+                                        <input type='range' id='ringScaleInput' class='slider' min='0' max='1' step='0.025'>
+                                        <br>
+                                    </div>
+
+                                    <!-- Export settings and stuff -->
+                                    <div class='exportDiv'>
+                                        <div>
+                                            <button id='chooseNewButton' class='button newImgButton'>Choose New Image</button>
+
+                                            <div style='height: 12px'></div>
+
+                                            <button id='exportButton' class='button greenButton'>Export and Open Image</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -119,7 +147,7 @@
         <br>
 
         <div style='text-align: center'>
-            <span class='topDesc'>nectarboy | 2021 | <a class='topDesc' href='https://damnsonwheredyafindthis.com'>source</a></span>
+            <span class='topDesc'>nectarboy | 2021 | <a class='topDesc' href='https://github.com/nectarboy/pride-pfp-maker/'>source</a></span>
         </div>
 
         <!-- Index script ( INDEX.JS !!!??) -->
@@ -135,7 +163,11 @@
 
             const editorDiv = document.getElementById('editorDiv');
                 const flagButtonDiv = document.getElementById('flagButtonDiv');
-                const otherFlagInput = document.getElementById('otherFlagInput')
+                const otherFlagInput = document.getElementById('otherFlagInput');
+                const imgScaleInput = document.getElementById('imgScaleInput');
+                const ringScaleInput = document.getElementById('ringScaleInput');
+                const chooseNewButton = document.getElementById('chooseNewButton');
+                const exportButton = document.getElementById('exportButton');
 
             var currentDiv = uploadDiv;
 
@@ -157,14 +189,27 @@
 
             function onPfpUpload(img) {
                 resetEditor();
+
                 editor.loadPfpImg(img);
                 editor.refreshCanvas();
+                defaultInputValues();
 
                 selectDiv(editorDiv);
             }
 
+            function defaultInputValues() {
+                imgScaleInput.value = editor.pfpImgScale;
+                ringScaleInput.value = 1 - editor.pfpRingScale;
+
+                console.log(imgScaleInput.value, ringScaleInput.value);
+            }
+
+            function getCanvasDataUrl() {
+                return mainCanvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+            }
+
             var refreshing = false;
-            const refreshCool = 250;
+            const refreshCool = 25;
             function requestRefresh() {
                 if (refreshing)
                     return;
@@ -250,6 +295,42 @@
                 flagButtonDiv.appendChild(wrapper);
             })();
 
+            // more settings
+            imgScaleInput.oninput = function() {
+                editor.pfpImgScale = this.value;
+                requestRefresh();
+            };
+
+            ringScaleInput.oninput = function() {
+                editor.pfpRingScale = 1 - this.value;
+                requestRefresh();
+            };
+
+            // export buttons
+            chooseNewButton.onclick = function() {
+                if (confirm('are you sure you want to start over ?'))
+                    selectDiv(uploadDiv);
+            };
+
+            exportButton.onclick = function() {
+                window.open(
+                    getCanvasDataUrl(),
+                    '_blank'
+                );
+
+                /*
+                const img = new Image();
+                img.onload = function() {
+                    const win = window.open('', '_blank');
+                    win.document.write(img.outerHTML);
+                };
+
+                img.onerror = () => alert('there was an error exporting ! try again o_o;')
+
+                img.src = getCanvasDataUrl();
+                */
+            };
+
             // --- uploading
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
                   uploadDiv.addEventListener(eventName, function(e) {
@@ -262,8 +343,6 @@
                 const files = e.dataTransfer.files;
                 if (files && files[0])
                     loadImgFromFile(files[0], onPfpUpload);
-
-                e.preventDefault();
             };
 
             // button click

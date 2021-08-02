@@ -113,7 +113,7 @@ html, body {
 
     box-shadow: rgba(0, 0, 0, 0.3) 0px 20px 30px;
 
-    overflow: auto;
+    overflow: hidden;
 }
 
 .smallLayer {
@@ -216,6 +216,8 @@ html, body {
 /* flag buttons */
 .flagButtonWrapper {
     display: inline-block;
+    position: relative;
+
     padding: 4px;
 }
 
@@ -240,6 +242,53 @@ html, body {
 }
 
 /* sliders and toggles n shit */
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+
+    width: 100%;
+    height: 20px;
+}
+    
+.exportDivWrapper {
+    margin: 0;
+
+    position: relative;
+    padding-bottom: 36px;
+
+    width: 100%;
+    height: inherit;
+
+    text-align: center;
+}
+.exportDiv {
+    display: block;
+    padding-bottom: 10px;
+
+    position: absolute;
+    bottom: 0;
+
+    width: 100%;
+}
+
+/* export buttons */
+.newImgButton, .greenButton {
+    color: white;
+    font-size: 16px;
+
+    width: 80%;
+    height: 50px;
+}
+
+.greenButton {
+    color: #333333;
+
+    background-color: #1cc959;
+    border-color: #111111;
+}
+.greenButton:hover {
+    background-color: #00ff6f;
+}
 
 /* ------------------------ */
 .pfpPreview {
