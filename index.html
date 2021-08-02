@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>((working title))</title>
+        <title>Pride PFP Maker</title>
         <meta charset='utf-8'>
 
         <link rel='stylesheet' href='src/index.css'>
+        <link rel='shortcut icon' href='src/assets/favicon.png' type='image/png'>
+
+        <meta name='description' content='customize your PFPs with pride flags !'>
+        <meta name='keywords' content='pride, pride pfp maker, pride icon maker, pride month, pride pfp, pride flag ring icon'>
+        <meta name='author' content='github.com/nectarboy'>
 
         <!-- PfpPride scripts -->
         <script src='src/pfppride/pfppride.js'></script>
@@ -17,7 +22,10 @@
         <!-- Top bar -->
         <div class='topBar'>
             <div class='topSub'> <!-- stfu -->
-                <span class='topTitle'>Pride PFP Generator | </span>
+                <span class='topTitle'>
+                    <img src='src/assets/logo_24.png'>
+                    Pride PFP Maker |
+                </span>
                 <span class='topDesc'>customize your PFPs with pride flags ! v0.5</span>
                 <br>
 
@@ -81,7 +89,11 @@
                                 <span>change the pride flag !</span>
                                 <hr class='line'>
 
-                                <div id='flagButtonDiv' class='flagButtonDiv'></div> <!-- fuck tables >:( -->
+                                <!-- fuck tables >:( -->
+                                <div id='flagButtonDiv' class='flagButtonDiv'>
+                                    <!-- Custom flag image input -->
+                                    <input type='file' id='otherFlagInput' style='display: none'>
+                                </div>
                             </div>
 
                         </div>
@@ -93,8 +105,8 @@
                             
                             <!-- Settings -->
                             <div class='bigLayer'>
-                                <!-- Custom flag image input -->
-                                <input type='file' id='otherFlagInput' style='display: none'>
+                                <span>more settings !</span>
+                                <hr class='line'>
                             </div>
 
                         </div>
@@ -141,7 +153,7 @@
                 img.onerror = () => alert('bitch the fuck did u give me !');
 
                 img.src = URL.createObjectURL(file); // set src to blob url
-            };
+            }
 
             function onPfpUpload(img) {
                 resetEditor();
@@ -149,6 +161,19 @@
                 editor.refreshCanvas();
 
                 selectDiv(editorDiv);
+            }
+
+            var refreshing = false;
+            const refreshCool = 250;
+            function requestRefresh() {
+                if (refreshing)
+                    return;
+                refreshing = true;
+
+                setTimeout(() => {
+                    refreshing = false;
+                    editor.refreshCanvas();
+                }, refreshCool);
             }
 
             // editor

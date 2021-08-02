@@ -84,8 +84,8 @@ class Editor {
 
         this.ctx.drawImage(
             this.pfpImg,
-            -(scaledWidth - this.pfpImg.width)/2 + this.pfpImgScale * this.pfpImgOffX,
-            -(scaledHeight - this.pfpImg.height*widthHeightRatio)/2 + this.pfpImgScale * this.pfpImgOffY,
+            -(scaledWidth - this.pfpImg.width)/2 + this.pfpImgOffX,
+            -(scaledHeight - this.pfpImg.height*widthHeightRatio)/2 + this.pfpImgOffY,
             scaledWidth,
             scaledHeight
         );
@@ -126,20 +126,29 @@ class Editor {
         }
     }
 
+    // settings
+    centerImgScale() {
+        this.pfpImgScale = (this.pfpImg.width > this.pfpImg.height)
+            ? this.pfpImg.width / this.pfpImg.height
+            : this.pfpImg.height / this.pfpImg.width;
+    }
+
+    fitImgScaleToRing() {
+        this.centerImgScale();
+        this.pfpImgScale *= this.pfpRingScale;
+    }
+
     resetSettingsDefault() {
         this.pfpImgOffX = 0;
         this.pfpImgOffY = 0;
 
-        this.pfpImgScale =
-        this.pfpImg.width > this.pfpImg.height ?
-            this.pfpImg.width / this.pfpImg.height :
-            this.pfpImg.height / this.pfpImg.width;
+        this.centerImgScale();
 
         // pfp mode cases !
         switch (this.pfpMode) {
             case 0: {
-                this.pfpRingScale = 0.875;
-                this.pfpImgScale *= this.pfpRingScale;
+                this.pfpRingScale = 0.9; // 0.9 for thin, 0.875 for thick
+                this.fitImgScaleToRing();
                 break;
             }
         }
