@@ -1,21 +1,19 @@
 # <img src='https://github.com/nectarboy/pride-pfp-maker/blob/main/src/assets/logo_32.png?raw=true'> Pride PFP Maker
-customize your PFPs with pride flags !<br>
-[try it out !](https://nectarboy.github.io/pride-pfp-maker/)
+>Customize your PFPs with pride flags !<br>
+[Try it out !](https://nectarboy.github.io/pride-pfp-maker/)
 
 ## A Short Note
-some features are still incomplete ! (see todo list)
+Some features are still incomplete (see todo list) !
 
-this was supposed to be a project for pride month<br>
-but i completed it like 2 months late ^-^;;
-
-who knows, it might get used next year
+This was supposed to be a project for pride month,<br>
+but i completed it like 2 months late ^-^;; who knows, it might get used next year
 
 ## How To Use
-this tool was made to be very easy and fast to use;<br>
+This tool was made to be very easy and fast to use;<br>
 simply upload any image, press some buttons, and done !
 
-you can customize things like pride flags, zoom, and others right away<br>
-it even supports uploading custom images for any pride flags not included :D
+You can customize things like pride flags, zoom, and others right away.<br>
+It even supports uploading custom images for any pride flags not included :D
 
 ### Features
 ```
@@ -42,4 +40,4 @@ it even supports uploading custom images for any pride flags not included :D
 
 ---
 
-nectarboy - 2021
+>nectarboy - 2021
