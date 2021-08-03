@@ -16,6 +16,7 @@ You can customize things like pride flags, zoom, and others right away.<br>
 It even supports uploading custom images for any pride flags not included :D
 
 >Some examples :3
+
 ![L](https://github.com/nectarboy/pride-pfp-maker/blob/main/examples/previews/0.png?raw=true)
 ![G](https://github.com/nectarboy/pride-pfp-maker/blob/main/examples/previews/1.png?raw=true)
 ![T](https://github.com/nectarboy/pride-pfp-maker/blob/main/examples/previews/2.png?raw=true)
