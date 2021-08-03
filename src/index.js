@@ -75,7 +75,7 @@ function requestRefresh() {
 var editor = null;
 function resetEditor() {
     editor = new Editor(mainCanvas);
-    editor.flagId = 1; // Gay flag
+    editor.flagId = 1; // Rainbow flag
 }
 
 // --- editing

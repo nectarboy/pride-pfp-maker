@@ -4,7 +4,7 @@ const presetFlags = [
         obj: new FlagObject(['#cf571f', '#ed9d42', '#ffc87a', '#ffffff', '#f59ae4', '#e058b5', '#9e038b'])
     },
     {
-        name: 'Gay',
+        name: 'Pride',
         obj: new FlagObject(['#f50a0a', '#ff7519', '#ffff24', '#54de2a', '#203ee6', '#7219a6'])
     },
     {
