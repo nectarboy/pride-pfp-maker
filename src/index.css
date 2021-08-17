@@ -312,5 +312,7 @@ html, body {
     border: 2px solid #f0f0f0;
     border-radius: 100%;
 
+    touch-action: none;
+
     box-shadow: rgba(0, 0, 0, 0.3) 0px 20px 30px;
 }
