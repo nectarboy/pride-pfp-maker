@@ -138,21 +138,16 @@ class Editor {
         this.pfpImgScale *= this.pfpRingScale;
     }
 
+    resetPfpRingScale() {
+        this.pfpRingScale = 0.9; // 0.9 for thin, 0.875 for thick
+    }
+
     resetSettingsDefault() {
         this.pfpImgOffX = 0;
         this.pfpImgOffY = 0;
 
-        this.centerImgScale();
-
-        // pfp mode cases !
-        switch (this.pfpMode) {
-            case 0: {
-                this.pfpRingScale = 0.9; // 0.9 for thin, 0.875 for thick
-                this.fitImgScaleToRing();
-                break;
-            }
-        }
-
+        this.resetPfpRingScale();
+        this.fitImgScaleToRing();
     }
 
 }

@@ -32,14 +32,14 @@ It even supports uploading custom images for any pride flags not included :D
 
 - slider for image zoom
 - slider for flag ring size
+- drag and reposition image
 
 - export image as .PNG
 ```
 
 ### Todo List
 ```
-- implement dragging image position
-- add reset buttons
+- more flags (and flag types ?)
 - add mode for transparent images with pride backgrounds
 
 - improve font and CSS
@@ -47,6 +47,10 @@ It even supports uploading custom images for any pride flags not included :D
 ```
 
 ## Some Other Things
+Sorry if theres a missing flag you want, i didnt want to add too many buttons to the page,
+(also my tools rlly primitive and can only render flags with just horizontal lines ehe)
+
+I hope the Custom Flag option makes up for it enough, though if you want to suggest adding a flag, tell me !
 
 ---
 

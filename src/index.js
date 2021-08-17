@@ -1,4 +1,4 @@
-console.log('what u doing sneakin around in the code huh ...');
+console.log('loading the app babe');
 
 // --- get all elements
 const mainCanvas = document.getElementById('mainCanvas');
@@ -12,10 +12,20 @@ const exportDiv = document.getElementById('exportDiv');
     const exportEl = document.getElementById('exportEl');
 
 const editorDiv = document.getElementById('editorDiv');
+    // Flag buttons
     const flagButtonDiv = document.getElementById('flagButtonDiv');
     const otherFlagInput = document.getElementById('otherFlagInput');
+
+    // Setting buttons
     const imgScaleInput = document.getElementById('imgScaleInput');
     const ringScaleInput = document.getElementById('ringScaleInput');
+
+    // Reset buttons
+    const resetImageScaleButton = document.getElementById('resetImageScaleButton');
+    const resetRingScaleButton = document.getElementById('resetRingScaleButton');
+    const resetDragOffButton = document.getElementById('resetDragOffButton');
+
+    // Export & choose new img buttons
     const chooseNewButton = document.getElementById('chooseNewButton');
     const exportButton = document.getElementById('exportButton');
 
@@ -35,23 +45,6 @@ function loadImgFromFile(file, callback) {
     img.onerror = () => alert('bitch the fuck did u give me !');
 
     img.src = URL.createObjectURL(file); // set src to blob url
-}
-
-function onPfpUpload(img) {
-    resetEditor();
-
-    editor.loadPfpImg(img);
-    editor.refreshCanvas();
-    defaultInputValues();
-
-    selectDiv(editorDiv);
-}
-
-function defaultInputValues() {
-    imgScaleInput.value = editor.pfpImgScale;
-    ringScaleInput.value = 1 - editor.pfpRingScale;
-
-    console.log(imgScaleInput.value, ringScaleInput.value);
 }
 
 function getCanvasUrl(canvas) {
@@ -180,7 +173,113 @@ exportButton.onclick = function() {
     
 };
 
+// offset dragging
+var dragX = 0;
+var dragY = 0;
+var dragPreX = 0;
+var dragPreY = 0;
+var dragging = false;
+var movedBefore = false;
+
+function setDragPos(x, y) {
+    if (!dragging)
+        return;
+
+    dragPreX = dragX;
+    dragPreY = dragY;
+    dragX = x;
+    dragY = y;
+
+    if (movedBefore) {
+        editor.pfpImgOffX += dragX - dragPreX;
+        editor.pfpImgOffY += dragY - dragPreY;
+
+        requestRefresh();
+    }
+    else {
+        movedBefore = true;
+
+        dragPreX = dragX;
+        dragPreY = dragY;
+    }
+}
+
+mainCanvas.onmousedown =
+mainCanvas.ontouchstart = e => {
+    dragging = true; 
+};
+document.onmouseup =
+mainCanvas.ontouchend = e => {
+    dragging = false;
+    movedBefore = false;
+};
+
+// Mouse dragging
+document.onmousemove = e => {
+    const rect = mainCanvas.getBoundingClientRect();
+    const scale = mainCanvas.width / rect.width;
+
+    setDragPos(
+        scale * (e.x - rect.left),
+        scale * (e.y - rect.top)
+    );
+};
+
+// Finger dragging
+mainCanvas.ontouchmove = e => {
+    const rect = mainCanvas.getBoundingClientRect();
+    const scale = mainCanvas.width / rect.width;
+
+    setDragPos(
+        scale * (e.touches[0].pageX - rect.left),
+        scale * (e.touches[0].pageY - rect.top)
+    );
+};
+
+// resetting settings
+function resetDragOffset() {
+    editor.pfpImgOffX = 0;
+    editor.pfpImgOffY = 0;
+}
+
+function resetRingScale() {
+    editor.resetPfpRingScale();
+    ringScaleInput.value = 1 - editor.pfpRingScale;
+}
+
+function resetImgScale() {
+    editor.fitImgScaleToRing();
+    imgScaleInput.value = editor.pfpImgScale;
+}
+
+function defaultInputValues() {
+    resetRingScale();
+    resetImgScale();
+    resetDragOffset();
+
+    console.log(imgScaleInput.value, ringScaleInput.value);
+}
+
+// resetting button functionality
+[[resetImageScaleButton, resetImgScale], [resetRingScaleButton, resetRingScale], [resetDragOffButton, resetDragOffset]]
+.forEach(pack => {
+    pack[0].onclick = function() {
+        pack[1]();
+        requestRefresh();
+    };
+});
+
 // --- uploading
+function onPfpUpload(img) {
+    resetEditor();
+
+    editor.loadPfpImg(img);
+    editor.refreshCanvas();
+    defaultInputValues();
+
+    selectDiv(editorDiv);
+}
+
 ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
       uploadDiv.addEventListener(eventName, function(e) {
             e.preventDefault();
@@ -205,10 +304,15 @@ continueEditing.onclick = function() {
     selectDiv(editorDiv);
 
     exportEl.onerror = null;
-    exportEl.src = ''; // unneeded !
+    exportEl.src = ''; // free memory (?) !
 };
 
 // --- execute
 selectDiv(uploadDiv);
 
-console.log('no errors :D');
+console.log('running; no errors :D');
+
+// phew ,,, that was a hot hot mess ,,,
+// this code rlly needs some refactoring (especially in the names)
+// i suck complete ass at variable names n shit ..
+// well everything works so its all good for now :3

@@ -27,7 +27,7 @@
                     <img src='src/assets/logo_24.png'>
                     Pride PFP Maker |
                 </span>
-                <span class='topDesc'>customize your PFPs with pride flags ! v0.6</span>
+                <span class='topDesc'>customize your PFPs with pride flags ! v1.0</span>
                 <br>
 
                 <marquee><span id='prideAlertMuthaFucka' class='prideText'></span></marquee>
@@ -144,14 +144,30 @@
                                         <input type='range' id='ringScaleInput' class='slider' min='0' max='1' step='0.025'>
                                         <br>
                                     </div>
+                                    <br>
+
+                                    <div class='flagButtonDiv'>
+                                        <!-- Reset image scale -->
+                                        <div id='resetImageScaleButton' class='button otherFlagButton'>
+                                            <span>Reset Image Zoom</span>
+                                        </div>
+
+                                        <!-- Reset ring scale -->
+                                        <div id='resetRingScaleButton' class='button otherFlagButton'>
+                                            <span>Reset Ring Size</span>
+                                        </div>
+
+                                        <!-- Reset drag offset -->
+                                        <div id='resetDragOffButton' class='button otherFlagButton'>
+                                            <span>Reset Image Position</span> <!-- i use code names ok ~w~ -->
+                                        </div>
+                                    </div>
 
                                     <!-- Export settings and stuff -->
                                     <div class='exportDiv'>
                                         <div>
                                             <button id='chooseNewButton' class='button newImgButton'>Choose New Image</button>
-
                                             <div style='height: 12px'></div>
-
                                             <button id='exportButton' class='button greenButton'>Export and Open Image</button>
                                         </div>
                                     </div>
