@@ -182,7 +182,7 @@ var dragging = false;
 var movedBefore = false;
 
 function setDragPos(x, y) {
-    if (!dragging)
+    if (!dragging || refreshing)
         return;
 
     dragPreX = dragX;
