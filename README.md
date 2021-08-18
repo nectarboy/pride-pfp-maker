@@ -42,7 +42,6 @@ It even supports uploading custom images for any pride flags not included :D
 - more flags (and flag types ?)
 - add mode for transparent images with pride backgrounds
 
-- improve font and CSS
 - refactor code and stuff
 ```
 
@@ -52,6 +51,10 @@ Sorry if theres a missing flag you want, i didnt want to add too many buttons to
 
 I hope the Custom Flag option makes up for it enough, though if you want to suggest adding a flag, tell me !
 
+### Credits
+- Website Font: Roboto Mono
+
 ---
 
+Have fun :)
 >nectarboy - 2021

@@ -25,15 +25,20 @@
             <div class='topSub'> <!-- stfu -->
                 <span class='topTitle'>
                     <img src='src/assets/logo_24.png'>
-                    Pride PFP Maker |
+                    <i>Pride PFP Maker</i> |
                 </span>
-                <span class='topDesc'>customize your PFPs with pride flags ! v1.0</span>
+                <span class='topDesc'>customize your PFPs with pride flags ! v1.1</span>
                 <br>
 
-                <marquee><span id='prideAlertMuthaFucka' class='prideText'></span></marquee>
+                <marquee id='prideAlertMuthaFucka'></span></marquee>
                 <script>
-                    if ((new Date()).getMonth() === 5)
-                        document.getElementById('prideAlertMuthaFucka').innerHTML = 'happy pride month '.repeat(12); // 13 ?
+                    if ((new Date()).getMonth() === 5) {
+                        const el = document.createElement('span');
+                        el.className = 'prideText';
+                        el.innerHTML = 'happy pride month '.repeat(12);
+
+                        document.getElementById('prideAlertMuthaFucka').appendChild(el);
+                    }
 
                     // if u see this ur gay as balls
                 </script>
@@ -135,7 +140,7 @@
                                         <!-- Image scale -->
                                         <span>image zoom</span>
                                         <br>
-                                        <input type='range' id='imgScaleInput' class='slider' min='0' max='3' step='0.05'>
+                                        <input type='range' id='imgScaleInput' class='slider' min='0' max='3' step='0.025'>
                                         <br>
 
                                         <!-- Ring scale -->
