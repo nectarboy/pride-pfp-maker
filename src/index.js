@@ -1,3 +1,5 @@
+//document.onload = function() {
+
 console.log('loading the app babe');
 
 // --- get all elements
@@ -25,6 +27,12 @@ const editorDiv = document.getElementById('editorDiv');
     const resetRingScaleButton = document.getElementById('resetRingScaleButton');
     const resetDragOffButton = document.getElementById('resetDragOffButton');
 
+    // Flag mode objects
+    const flagModeText = document.getElementById('flagModeText');
+    const flagModeToggle = document.getElementById('flagModeToggle');
+    const flagModeToggleHandle = document.getElementById('flagModeToggleHandle');
+    const flagModePreview = document.getElementById('flagModePreview');
+
     // Export & choose new img buttons
     const chooseNewButton = document.getElementById('chooseNewButton');
     const exportButton = document.getElementById('exportButton');
@@ -51,24 +59,26 @@ function getCanvasUrl(canvas) {
     return mainCanvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
 }
 
-var refreshing = false;
-const refreshCool = 25;
+const canvasRefreshCooldown = 25;
+var canvasRefreshing = false;
 function requestRefresh() {
-    if (refreshing)
+    if (canvasRefreshing)
         return;
-    refreshing = true;
+    canvasRefreshing = true;
 
     setTimeout(() => {
-        refreshing = false;
+        canvasRefreshing = false;
         editor.refreshCanvas();
-    }, refreshCool);
+    }, canvasRefreshCooldown);
 }
 
 // editor
 var editor = null;
+var editorloaded = false;
 function resetEditor() {
+    editorloaded = true;
     editor = new Editor(mainCanvas);
-    editor.flagId = 1; // Rainbow flag
+    editor.flagId = 0; // Rainbow flag
 }
 
 // --- editing
@@ -140,7 +150,7 @@ otherFlagInput.onchange = function() {
 
 // more settings
 imgScaleInput.oninput = function() {
-    editor.pfpImgScale = this.value;
+    editor.setPfpImageScale(this.value);
     requestRefresh();
 };
 
@@ -182,7 +192,7 @@ var dragging = false;
 var movedBefore = false;
 
 function setDragPos(x, y) {
-    if (!dragging || refreshing)
+    if (!dragging || canvasRefreshing)
         return;
 
     dragPreX = dragX;
@@ -247,21 +257,21 @@ function resetRingScale() {
     ringScaleInput.value = 1 - editor.pfpRingScale;
 }
 
-function resetImgScale() {
+function resetImageScale() {
     editor.fitImgScaleToRing();
     imgScaleInput.value = editor.pfpImgScale;
 }
 
 function defaultInputValues() {
     resetRingScale();
-    resetImgScale();
+    resetImageScale();
     resetDragOffset();
 
     console.log(imgScaleInput.value, ringScaleInput.value);
 }
 
 // resetting button functionality
-[[resetImageScaleButton, resetImgScale], [resetRingScaleButton, resetRingScale], [resetDragOffButton, resetDragOffset]]
+[[resetImageScaleButton, resetImageScale], [resetRingScaleButton, resetRingScale], [resetDragOffButton, resetDragOffset]]
 .forEach(pack => {
     pack[0].onclick = function() {
         pack[1]();
@@ -269,13 +279,69 @@ function defaultInputValues() {
     };
 });
 
+// --- Pfp mode functionally
+var flagmode = false;
+var flagModePreviewEditor = new Editor(flagModePreview);
+var lilguyImage = new Image();
+lilguyImage.onload = function() {
+    lilguyImageLoaded = true;
+    flagModePreviewEditor.loadPfpImg(lilguyImage);
+
+    setFlagMode(flagmode); // update preview :p
+};
+lilguyImage.src = 'src/assets/lilguy_32.png';
+var lilguyImageLoaded = false;
+
+function setFlagMode(val) {
+    flagmode = val;
+    if (editorloaded) {
+        editor.bgMode = val;
+        resetRingScale();
+        resetImageScale();
+
+        editor.refreshCanvas();
+    }
+
+    // style
+    var computedtoggle = getComputedStyle(flagModeToggle);
+    var computedtogglehandle = getComputedStyle(flagModeToggleHandle);
+    var togglerectwidth = parseFloat(computedtoggle.width);
+    var togglerectborder = parseFloat(computedtoggle.border);
+    var togglerecthandlewidth = parseFloat(computedtogglehandle.width);
+
+    // toggled on
+    if (val) {
+        flagModeToggle.style.backgroundColor = '#1cc959';
+        flagModeToggleHandle.style.left = togglerectwidth - togglerecthandlewidth - togglerectborder*2 + 'px';
+        flagModeText.innerHTML = 'flag mode: BACKGROUND';
+    }
+    // toggled off
+    else {
+        flagModeToggle.style.backgroundColor = '#333333';
+        flagModeToggleHandle.style.left = '0';
+        flagModeText.innerHTML = 'flag mode: RING';
+    }
+
+    if (lilguyImageLoaded) {
+        flagModePreviewEditor.setBgMode(val);
+        flagModePreviewEditor.setPfpImageScale(1);
+        flagModePreviewEditor.pfpRingScale = 0.8;
+
+        flagModePreviewEditor.refreshCanvas();
+    }
+}
+
+flagModeToggle.onclick = function() {
+    setFlagMode(!flagmode);
+};
+
 // --- uploading
 function onPfpUpload(img) {
     resetEditor();
 
     editor.loadPfpImg(img);
-    editor.refreshCanvas();
     defaultInputValues();
+    editor.refreshCanvas();
 
     selectDiv(editorDiv);
 }
@@ -309,8 +375,11 @@ continueEditing.onclick = function() {
 
 // --- execute
 selectDiv(uploadDiv);
+setFlagMode(false);
 
 console.log('running; no errors :D');
+
+//};
 
 // phew ,,, that was a hot hot mess ,,,
 // this code rlly needs some refactoring (especially in the names)

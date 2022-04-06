@@ -15,7 +15,7 @@ class Editor {
         this.pfpImgOffY = 0;
 
         // pfp
-        this.pfpMode = 0; // 0: ring, 1: background
+        this.bgMode = false; // true: ring, false: background
         this.flagId = 0;
 
         // flag
@@ -42,6 +42,26 @@ class Editor {
         this.customFlag = false;
     }
 
+    setBgMode(val) {
+        this.bgMode = val;
+        this.resetSettingsDefault();
+        this.refreshCanvas();
+    }
+
+    setPfpImageScale(val) {
+        var before = this.pfpImgScale;
+        this.pfpImgScale = val;
+
+        // fix img offset to account for scale
+        var ratio = val / before;
+        //console.log(val, before, ratio)
+        if (val === 0 || before === 0 || ratio === 0 || ratio === Infinity) // im trying my best to avoid NaNs ;-;
+            return;
+
+        this.pfpImgOffX *= ratio;
+        this.pfpImgOffY *= ratio;
+    }
+
     // refreshing the main canvas
     refreshCanvas() {
         const flagCanvas = document.createElement('canvas');
@@ -54,24 +74,18 @@ class Editor {
 
         const flag = presetFlags[this.flagId];
 
-        switch (this.pfpMode) {
-            case 0: {
-                this.drawFlag(flagCanvas, flag);
-                flag.obj.EraseCircleOnCanvas(flagCanvas, this.pfpRingScale);
+        if (this.bgMode) {
+            this.drawFlag(flagCanvas, flag);
 
-                this.drawPfpImg();
-                this.ctx.drawImage(flagCanvas, 0, 0, this.canvas.width, this.canvas.height);
-                break;
-            }
-            case 1: {
-                this.drawFlag(flagCanvas, flag);
+            this.ctx.drawImage(flagCanvas, 0, 0, this.canvas.width, this.canvas.height);
+            this.drawPfpImg();
+        }
+        else {
+            this.drawFlag(flagCanvas, flag);
+            flag.obj.EraseCircleOnCanvas(flagCanvas, this.pfpRingScale);
 
-                this.ctx.drawImage(flagCanvas, 0, 0, this.canvas.width, this.canvas.height);
-                this.drawPfpImg();
-                break;
-            }
-
-            default: throw 'ERROR: invalid pfp mode ?';
+            this.drawPfpImg();
+            this.ctx.drawImage(flagCanvas, 0, 0, this.canvas.width, this.canvas.height);
         }
     }
 
@@ -127,19 +141,29 @@ class Editor {
     }
 
     // settings
-    centerImgScale() {
-        this.pfpImgScale = (this.pfpImg.width > this.pfpImg.height)
-            ? this.pfpImg.width / this.pfpImg.height
-            : this.pfpImg.height / this.pfpImg.width;
+    fitWholeImageScale() {
+        if (this.pfpImg.width > this.pfpImg.height)
+            this.setPfpImageScale(this.pfpImg.width / this.pfpImg.height);
+        else
+            this.setPfpImageScale(this.pfpImg.height / this.pfpImg.width);
+
+        // this.pfpImgScale = (this.pfpImg.width > this.pfpImg.height)
+        //     ? this.pfpImg.width / this.pfpImg.height
+        //     : this.pfpImg.height / this.pfpImg.width;
     }
 
     fitImgScaleToRing() {
-        this.centerImgScale();
-        this.pfpImgScale *= this.pfpRingScale;
+        this.fitWholeImageScale();
+        this.setPfpImageScale(this.pfpImgScale * this.pfpRingScale);
     }
 
     resetPfpRingScale() {
-        this.pfpRingScale = 0.9; // 0.9 for thin, 0.875 for thick
+        if (this.bgMode) {
+            this.pfpRingScale = 1;
+        }
+        else {
+            this.pfpRingScale = 0.9; // 0.9 thin, 0.875 thick
+        }
     }
 
     resetSettingsDefault() {

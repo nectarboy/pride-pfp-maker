@@ -6,7 +6,14 @@
         <meta name='viewport' content='width=device-width, initial-scale=0.5'> <!-- should be good for most phones ? -->
 
         <link rel='stylesheet' href='src/index.css'>
-        <link rel='shortcut icon' href='src/assets/favicon.png' type='image/png'>
+        <link rel='shortcut icon' href='src/assets/favicon_16.png' type='image/png'>
+        <link rel='apple-touch-icon' href='src/assets/logo_128'>
+        <link rel='image_src' href='src/assets/logo_128'> 
+        <meta property='og:type' content='website'>
+        <meta property='og:url' content='nectarboy.github.io/pride-pfp-maker'>
+        <meta property='og:site_name' content='Pride PFP Maker'>
+        <meta property='og:image' itemprop="image primaryImageOfPage" content='src/assets/logo_128'>
+
 
         <meta name='description' content='customize your PFPs with pride flags !'>
         <meta name='keywords' content='pride, pride pfp maker, pride icon maker, pride month, pride pfp, pride flag ring icon'>
@@ -24,18 +31,18 @@
         <div class='topBar'>
             <div class='topSub'> <!-- stfu -->
                 <span class='topTitle'>
-                    <img src='src/assets/logo_24.png'>
-                    <i>Pride PFP Maker</i> |
+                    <img src='src/assets/favicon_24.png'>
+                    <i class='topTitle'>Pride PFP Maker</i> |
                 </span>
-                <span class='topDesc'>customize your PFPs with pride flags ! v1.1</span>
+                <span class='topDesc'>customize your PFPs with pride flags ! v1.2</span>
                 <br>
 
                 <marquee id='prideAlertMuthaFucka'></span></marquee>
                 <script>
-                    if ((new Date()).getMonth() === 5) {
+                    if ((new Date()).getMonth() === 3) {
                         const el = document.createElement('span');
                         el.className = 'prideText';
-                        el.innerHTML = 'happy pride month '.repeat(12);
+                        el.innerHTML = 'happy pride month | '.repeat(12);
 
                         document.getElementById('prideAlertMuthaFucka').appendChild(el);
                     }
@@ -80,7 +87,8 @@
                     <hr class='line'>
 
                     <div id='continueEditing' class='button otherFlagButton'>
-                        <span>Continue Editing</span>
+                        <span>Continue</span>
+                        <br><span>Editing</span>
                     </div>
 
                     <!-- Upload image -->
@@ -144,7 +152,7 @@
                                         <br>
 
                                         <!-- Ring scale -->
-                                        <span>ring size</span>
+                                        <span>ring scale</span>
                                         <br>
                                         <input type='range' id='ringScaleInput' class='slider' min='0' max='1' step='0.025'>
                                         <br>
@@ -154,17 +162,38 @@
                                     <div class='flagButtonDiv'>
                                         <!-- Reset image scale -->
                                         <div id='resetImageScaleButton' class='button otherFlagButton'>
-                                            <span>Reset Image Zoom</span>
+                                            <span>Default Image</span>
+                                            <br><span>Zoom</span>
                                         </div>
 
                                         <!-- Reset ring scale -->
                                         <div id='resetRingScaleButton' class='button otherFlagButton'>
-                                            <span>Reset Ring Size</span>
+                                            <span>Default</span>
+                                            <br><span>Ring Scale</span>
                                         </div>
 
-                                        <!-- Reset drag offset -->
+                                        <!-- Reset image offset -->
                                         <div id='resetDragOffButton' class='button otherFlagButton'>
-                                            <span>Reset Image Position</span> <!-- i use code names ok ~w~ -->
+                                            <span>Center Image</span>
+                                            <br><span>Position</span> <!-- i use code names ok ~w~ -->
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+
+                                    <div class='flagButtonDiv'>
+                                        <!-- Flag mode text -->
+                                        <span id='flagModeText'>flag mode: ring</span>
+
+                                        <div class='verticalCenter'>
+                                            <!-- Flag mode toggle -->
+                                            <div id='flagModeToggle' class='toggle'>
+                                                <div id='flagModeToggleHandle' class='toggleHandle'></div>
+                                            </div>
+                                            <!-- Flag mode preview canvas -->
+                                            <div style='padding: 8px'>
+                                                <canvas id='flagModePreview' class='pfpModePreview' width=32 height=32></canvas>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -189,7 +218,7 @@
         <br>
 
         <div style='text-align: center'>
-            <span class='topDesc'>nectarboy | 2021 | <a class='topDesc' href='https://github.com/nectarboy/pride-pfp-maker/'>source</a></span>
+            <span class='topDesc'>nectarboy | 2022 | <a class='topDesc' href='https://github.com/nectarboy/pride-pfp-maker/'>source</a></span>
         </div>
 
         <!-- Index script ( INDEX.JS !!!??) -->
