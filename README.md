@@ -1,7 +1,8 @@
 <p align='center'><img src='https://github.com/nectarboy/pride-pfp-maker/blob/main/src/assets/logo_128.png?raw=true'></p>
 <h1 align='center'>Pride PFP Maker</h1>
 Customize your PFPs with pride flags!<
-<br>[A very straightforward tool to easily customize images into pride pfps](https://nectarboy.github.io/pride-pfp-maker/)
+<br>
+[A very straightforward tool to easily customize images into pride pfps](https://nectarboy.github.io/pride-pfp-maker/)
 
 ## A Short Note
 This was supposed to be a project for june 2021,
