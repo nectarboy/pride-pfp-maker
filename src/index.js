@@ -33,6 +33,9 @@ const flagModeToggle = document.getElementById("flagModeToggle");
 const flagModeToggleHandle = document.getElementById("flagModeToggleHandle");
 const flagModePreview = document.getElementById("flagModePreview");
 
+//Flag Color
+const flagColor = document.getElementById("color");
+
 // Export & choose new img buttons
 const chooseNewButton = document.getElementById("chooseNewButton");
 const exportButton = document.getElementById("exportButton");
@@ -147,6 +150,12 @@ otherFlagInput.onchange = function () {
 	wrapper.appendChild(label);
 	flagButtonDiv.appendChild(wrapper);
 })();
+
+flagColor.getContext("2d").canvas.hidden = true;
+flagColor.onchange = function () {
+	editor.loadFlagImg(flagColor);
+	editor.refreshCanvas();
+};
 
 // more settings
 imgScaleInput.oninput = function () {
