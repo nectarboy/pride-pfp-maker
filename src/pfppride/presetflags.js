@@ -13,7 +13,7 @@ const presetFlags = [
 	},
 	{
 		name: 'Bisexual',
-		obj: new FlagObject(['#f51871', '#f51871', '#d415b7', '#8004c7', '#8004c7'])
+		obj: new FlagObject(['#D60270', '#D60270', '#9B4F96', '#0038A8', '#0038A8'])
 	},
 	{
 		name: 'Transgender',
