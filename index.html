@@ -24,6 +24,9 @@
         <script src='src/pfppride/pfppride.js'></script>
         <script src='src/pfppride/presetflags.js'></script>
         <script src='src/pfppride/editor.js'></script>
+        <script src='src/mouse.js'></script>
+        <script src='src/picker.js' defer></script>
+        <script src='src/index.js' defer></script>
     </head>
 
     <body>
@@ -35,7 +38,7 @@
                     <img src='src/assets/favicon_24.png'>
                     <i class='topTitle'>Pride PFP Maker</i> |
                 </span>
-                <span class='topDesc'>customize your PFPs with pride flags ! v1.2</span>
+                <span class='topDesc'>customize your PFPs with pride flags ! v1.3</span>
                 <br>
 
                 <marquee id='prideAlertMuthaFucka'></span></marquee>
@@ -102,10 +105,9 @@
 
             <!-- Editor div -->
             <div id='editorDiv' class='mainBox' style='display: none'>
-                <table class='editorTable'>
-                    <tr>
-                        <!-- Left side -->
-                        <td class='leftSide'>
+                <div id='editor'>
+                    <!-- Left side -->
+                    <div class='leftSide'>
                         <div class='sideWrap'>
 
                             <!-- Preview -->
@@ -129,14 +131,19 @@
                                 <div id='flagButtonDiv' class='flagButtonDiv'>
                                     <!-- Custom flag image input -->
                                     <input type='file' id='otherFlagInput' style='display: none'>
+                                    <div id="color-picker">
+                                        <canvas id="color-block" height="150" width="150"></canvas>
+                                        <canvas id="color-strip" height="150" width="30"></canvas>
+                                        <canvas id="color"></canvas>
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
-                        </td>
+                    </div>
 
-                        <!-- Right side -->
-                        <td class='rightSide'>
+                    <!-- Right side -->
+                    <div class='rightSide'>
                         <div class='sideWrap'>
                             
                             <!-- Settings -->
@@ -156,6 +163,12 @@
                                         <span>ring scale</span>
                                         <br>
                                         <input type='range' id='ringScaleInput' class='slider' min='0' max='1' step='0.025'>
+                                        <br>
+
+                                        <!-- Ring scale -->
+                                        <span>blur</span>
+                                        <br>
+                                        <input type='range' id='blurInput' class='slider' min='0' max='50' step='0.5'>
                                         <br>
                                     </div>
                                     <br>
@@ -210,9 +223,8 @@
                             </div>
 
                         </div>
-                        </td>
-                    </tr>
-                </table>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -221,9 +233,5 @@
         <div style='text-align: center'>
             <span class='topDesc'>nectarboy | 2022 | <a class='topDesc' href='https://github.com/nectarboy/pride-pfp-maker/'>source</a></span>
         </div>
-
-        <!-- Index script ( INDEX.JS !!!??) -->
-        <script src='src/index.js'></script>
-
     </body>
 </html>

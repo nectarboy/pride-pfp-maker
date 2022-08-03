@@ -100,7 +100,6 @@ html, body {
     padding: 8px;
 
     width: 95%;
-    height: 512px;
 
     text-align: center;
     z-index: 1;
@@ -136,26 +135,13 @@ html, body {
     border-radius: 8px;
 
     /* i fucking hate css with all my fucking life holy shit */
-    width: auto;
+    flex-grow: 1;
     right: 12px;
     left: 12px;
 
     box-shadow: rgba(0, 0, 0, 0.3) 0px 20px 30px;
 
     overflow: hidden;
-}
-
-.smallLayer {
-    height: 25%;
-    max-height: 25%;
-}
-.mediumLayer {
-    height: 65%;
-    max-height: 65%;
-}
-.bigLayer {
-    height: 95%;
-    max-height: 95%;
 }
 
 /* vertically centered image solution from SO lmaooo */
@@ -232,12 +218,12 @@ html, body {
     box-shadow: rgba(0, 0, 0, 0.3) 0px 20px 30px;
 }
 
-/* ------------------------ / Editor Div */
-.editorTable {
-    width: 100%;
-    height: 100%;
+#editor,
+.rightSide > .sideWrap,
+.rightSide > .sideWrap > .bigLayer {
+    display: flex;
 }
-    
+
 /* sides */
 .sideWrap {
     padding: 0 12px 0 12px;
