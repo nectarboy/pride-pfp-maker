@@ -22,6 +22,7 @@ class Editor {
 		this.flagImg = null;
 		this.customFlag = false;
 
+		this.blur = true;
 		// event latches - configurable !
 		// this.onImgLoad = () => {};
 	}
@@ -82,7 +83,7 @@ class Editor {
 			this.drawFlag(flagCanvas, flag);
 
 			this.ctx.drawImage(
-				flagCanvas,
+				this.metodo(flagCanvas),
 				0,
 				0,
 				this.canvas.width,
@@ -95,13 +96,26 @@ class Editor {
 
 			this.drawPfpImg();
 			this.ctx.drawImage(
-				flagCanvas,
+				this.metodo(flagCanvas),
 				0,
 				0,
 				this.canvas.width,
 				this.canvas.height
 			);
 		}
+	}
+
+	metodo(flagCanvas) {
+		const { width: w, height: h } = this.canvas;
+		const canvas = document.createElement("canvas");
+		const flagCtx = flagCanvas.getContext("2d");
+		const canvasCtx = canvas.getContext("2d");
+		const x = flagCanvas.width / 2 - w / 2;
+		const imageContentRaw = flagCtx.getImageData(x, 0, w, h);
+		canvas.width = w;
+		canvas.height = h;
+		canvasCtx.putImageData(imageContentRaw, 0, 0);
+		return canvas;
 	}
 
 	// -- helper
@@ -140,7 +154,7 @@ class Editor {
 				canvScale = this.canvas.height / this.flagImg.width;
 				y = canvas.height / 2 - (this.flagImg.height * canvScale) / 2;
 			}
-
+			ctx.filter = getFilter();
 			ctx.drawImage(
 				this.flagImg,
 				x,
@@ -148,10 +162,11 @@ class Editor {
 				this.flagImg.width * canvScale,
 				this.flagImg.height * canvScale
 			);
+			ctx.filter = "none";
 		}
 		// Standard flag
 		else {
-			flag.obj.DrawFlagOnCanvas(canvas);
+			flag.obj.DrawFlagOnCanvas(canvas, this.blur);
 		}
 	}
 

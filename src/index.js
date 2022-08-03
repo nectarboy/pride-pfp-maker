@@ -21,6 +21,7 @@ const otherFlagInput = document.getElementById("otherFlagInput");
 // Setting buttons
 const imgScaleInput = document.getElementById("imgScaleInput");
 const ringScaleInput = document.getElementById("ringScaleInput");
+const blurInput = document.getElementById("blurInput");
 
 // Reset buttons
 const resetImageScaleButton = document.getElementById("resetImageScaleButton");
@@ -39,6 +40,8 @@ const flagColor = document.getElementById("color");
 // Export & choose new img buttons
 const chooseNewButton = document.getElementById("chooseNewButton");
 const exportButton = document.getElementById("exportButton");
+
+const offSetBlurWidth = 100;
 
 var currentDiv = uploadDiv;
 
@@ -170,6 +173,10 @@ ringScaleInput.oninput = function () {
 	requestRefresh();
 };
 
+blurInput.oninput = function () {
+	requestRefresh();
+};
+
 // export buttons
 chooseNewButton.onclick = function () {
 	if (confirm("are you sure you want to start over ?")) selectDiv(uploadDiv);
@@ -292,7 +299,7 @@ var lilguyImage = new Image();
 lilguyImage.onload = function () {
 	lilguyImageLoaded = true;
 	flagModePreviewEditor.loadPfpImg(lilguyImage);
-
+	flagModePreviewEditor.blur = false;
 	setFlagMode(flagmode); // update preview :p
 };
 lilguyImage.src = "src/assets/lilguy_32.png";
@@ -393,3 +400,7 @@ console.log("running; no errors :D");
 // this code rlly needs some refactoring (especially in the names)
 // i suck complete ass at variable names n shit ..
 // well everything works so its all good for now :3
+const getFilter = () => {
+	const blurValue = document.getElementById("blurInput").value;
+	return blurValue ? `blur(${blurValue}px)` : "none";
+};

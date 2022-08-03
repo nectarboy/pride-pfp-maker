@@ -23,7 +23,24 @@ class FlagObject {
 	}
 
 	// canvas methods !
-	DrawFlagOnCanvas(canvas) {
+	DrawFlagOnCanvas(canvas, blur = false) {
+		if (blur) {
+			this.DrawBlurredFlag(canvas);
+			return;
+		}
+		this.Render(canvas);
+	}
+
+	DrawBlurredFlag(canvas) {
+		const ctx = canvas.getContext("2d");
+		canvas.width = canvas.width + offSetBlurWidth;
+		this.Render(canvas);
+		ctx.filter = getFilter();
+		this.Render(canvas);
+		ctx.filter = "none";
+	}
+
+	Render(canvas) {
 		const ctx = canvas.getContext("2d");
 		const rowHeight = canvas.height / this.hexColors.length;
 		for (var i = 0; i < this.hexColors.length; i++) {
