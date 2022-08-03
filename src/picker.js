@@ -65,7 +65,7 @@ const updateColor = () => {
 	const ctx = document.getElementById("color").getContext("2d");
 	rgbaColor = getRGBA(imageData);
 	ctx.fillStyle = rgbaColor;
-	ctx.fillRect(0, 0, 512, 512);
+	ctx.fillRect(0, 0, flagColor.width, flagColor.height);
 	editor.loadFlagImg(flagColor);
 	editor.refreshCanvas();
 };

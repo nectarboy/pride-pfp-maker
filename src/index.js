@@ -152,6 +152,8 @@ otherFlagInput.onchange = function () {
 })();
 
 flagColor.getContext("2d").canvas.hidden = true;
+flagColor.height = mainCanvas.height;
+flagColor.width = mainCanvas.width;
 flagColor.onchange = function () {
 	editor.loadFlagImg(flagColor);
 	editor.refreshCanvas();
